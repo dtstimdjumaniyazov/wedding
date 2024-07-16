@@ -1804,4 +1804,60 @@ form label {
 }
 
 /*# sourceMappingURL=style.css.map */
+.flipTimebox {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px; /* Adjust spacing between flipTimeboxes as needed */
+  flex-direction: column; /* Ensure content stacks vertically */
+  align-items: center; /* Center items horizontally */
+  width: 100%; /* Ensure full width */
+}
 
+.clock-container {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center items horizontally */
+  width: 100%; /* Ensure full width */
+}
+
+.place {
+  font-family: 'Engagement', cursive; /* Ensure this matches your desired font */
+  font-size: 50px; /* Adjust size as needed */
+  margin-right: 10px; /* Space between the text and the clock */
+  color: white; /* Adjust color as needed */
+  min-width: 150px; /* Ensure it has enough space */
+  text-align: center; /* Align text to the center */
+  flex-shrink: 0; /* Prevent shrinking */
+}
+
+.clock {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+/* Media query for mobile screens */
+@media (max-width: 600px) {
+  .flipTimebox {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px; /* Adjust spacing between flipTimeboxes as needed */
+    margin-top: 10px;
+    flex-direction: column; /* Ensure content stacks vertically */
+    align-items: center; /* Center items horizontally */
+    width: 100%; /* Ensure full width */
+  }
+
+  .clock-container {
+      flex-direction: column; /* Stack elements vertically on small screens */
+      align-items: center; /* Center items horizontally */
+      width: 100%; /* Ensure full width */
+  }
+
+  .place {
+      margin-right: 0;
+      margin-bottom: 5px; /* Add space between the label and the clock */
+      text-align: center; /* Center align text */
+      min-width: auto; /* Allow label to resize */
+  }
+}

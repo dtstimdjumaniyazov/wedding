@@ -1,49 +1,53 @@
 $(document).ready(function() {
-  let clock;
+  function initializeClock(targetDateStr, clockClass) {
+    let clockElements = document.querySelectorAll(clockClass);
+    let currentDate = moment(); // Use moment to get the current date and time
+    let targetDate = moment.tz(targetDateStr, "Asia/Tashkent");
 
-  // Grab the current date
-  let currentDate = new Date();
+    // Log current and target dates for debugging
+    console.log("Current Date: ", currentDate.format());
+    console.log("Target Date: ", targetDate.format());
 
-  // Target future date/24 hour time/Timezone
-  let targetDate = moment.tz("2023-10-29 12:00", "Asia/Kolkata");
+    let diff = targetDate.diff(currentDate, 'seconds'); // Calculate difference in seconds
 
-  // Calculate the difference in seconds between the future and current date
-  let diff = targetDate / 1000 - currentDate.getTime() / 1000;
+    // Log the calculated difference for debugging
+    console.log("Time Difference in Seconds: ", diff);
 
-  if (diff <= 0) {
-    // If remaining countdown is 0
-    clock = $(".clock").FlipClock(0, {
-      clockFace: "DailyCounter",
-      countdown: true,
-      autostart: false
-    });
-    console.log("Date has already passed!")
-    
-  } else {
-    // Run countdown timer
-    clock = $(".clock").FlipClock(diff, {
-      clockFace: "DailyCounter",
-      countdown: true,
-      callbacks: {
-        stop: function() {
-          console.log("Timer has ended!")
+    clockElements.forEach(clockElement => {
+      if (diff <= 0) {
+        // If remaining countdown is 0
+        new FlipClock(clockElement, 0, {
+          clockFace: "DailyCounter",
+          countdown: true,
+          autostart: true,
+        });
+        console.log("Date has already passed!");
+      } else {
+        // Run countdown timer
+        let clock = new FlipClock(clockElement, diff, {
+          clockFace: "DailyCounter",
+          countdown: true,
+          callbacks: {
+            stop: function() {
+              console.log("Timer has ended!");
+            }
+          }
+        });
+
+        function checktime() {
+          let t = clock.getTime();
+          if (t <= 0) {
+            clock.setTime(0);
+          }
+          setTimeout(checktime, 1000);
         }
+
+        setTimeout(checktime, 1000);
       }
     });
-    
-    // Check when timer reaches 0, then stop at 0
-    setTimeout(function() {
-      checktime();
-    }, 1000);
-    
-    function checktime() {
-      t = clock.getTime();
-      if (t <= 0) {
-        clock.setTime(0);
-      }
-      setTimeout(function() {
-        checktime();
-      }, 1000);
-    }
   }
+
+  // Initialize clocks
+  initializeClock("2024-08-24 18:00", ".clock-fix");
+  initializeClock("2024-08-26 18:00", ".clock-fix1");
 });
