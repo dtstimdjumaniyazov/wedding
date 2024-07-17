@@ -48,6 +48,6 @@ $(document).ready(function() {
   }
 
   // Initialize clocks
-  initializeClock("2024-08-24 18:00", ".clock-fix");
+  initializeClock("2024-08-22 18:00", ".clock-fix");
   initializeClock("2024-08-26 18:00", ".clock-fix1");
 });
